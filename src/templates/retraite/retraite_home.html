@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Section grille Retraite -->
+<section class="p-3">
+  <div class="container">
+    <h2>Retraite</h2>
+      <div class="row text-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3 bg-success text-light">
+              <i class="bi bi-person-lines-fill h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Retraites</h3>
+            </div>
+            <div class="card-footer text-center">
+              <a href="{% url 'retraite:retraite_liste' %}" class="btn w-100 btn-outline-light">
+                Afficher
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-globe h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Préfectures</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:prefecture_liste' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-journal-text h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Employeurs</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:employeur_liste' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-person-x h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Retraites Décès</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:retraite_deces_liste' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-person-badge h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Retraites Billetage</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:retraite_billetage' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-bank h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Liste Retraites Virements</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:retraite_virement_liste' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-printer h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Edition des Etats</h3>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'retraite:retraite_etats' %}" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card m-3  bg-success text-light">
+            <i class="bi bi-printer h1"></i>
+            <div class="card-body">
+              <h3 class="card-title"> Edition des Bulletins</h3>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn w-100 btn-outline-light">
+                Afficher
+
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

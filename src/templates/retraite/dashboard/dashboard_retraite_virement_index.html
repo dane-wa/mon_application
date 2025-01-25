@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load montant_price %}
+
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- recherche-->
+  <div class="container mt-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" name="recherche">
+      <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+      <a href="{% url 'retraite:retraite_virement_add' %}" class="btn btn-success mx-2" type="button">Ajouter</a>
+    </form>
+  </div>
+
+
+<!-- Section tableau Retraite virement -->
+<section>
+  <div class="container mt-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm caption-top">
+      <caption>Dashboard Retraites Virement</caption>
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">Type</th>
+          <th scope="col">N° Pension</th>
+          <th scope="col">N° RIB</th>
+          <th scope="col">ModedePaiement</th>
+          <th scope="col">echeance1erVrmt</th>
+          <th scope="col">codeBanque</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for retraite_virement in retraite_virement %}
+        <tr>
+          <th scope="row">{{ retraite_virement.id }}</th>
+          <td>{{ retraite_virement.retraite.type }}</td>
+           <td>{{ retraite_virement.retraite }}</td>
+          <td>{{ retraite_virement.numero_RIB }}</td>
+          <td><strong>{{ retraite_virement.modePaiement }}</strong></td>
+          <td><strong>{{ retraite_virement.echeancePremierVrmt|date:"SHORT_DATE_FORMAT" }}</strong></td>
+          <td>{{ retraite_virement.codeBanque.libelle }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <a href="{% url 'retraite:retraite_virement_edit' retraite_virement.id %}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
+              <form action="{% url 'retraite:retraite_virement_delete' retraite_virement.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+    {% include "retraite/partials/paginator.html" with datas=retraite_virement %}
+</div>
+
+</section>
+
+{% endblock %}

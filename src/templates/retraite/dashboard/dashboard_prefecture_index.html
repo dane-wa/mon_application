@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- recherche et ajout -->
+  <div class="container mt-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" name="recherche">
+      <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+      <a href="{% url 'retraite:prefecture_add' %}" class="btn btn-success mx-2" type="button">Ajouter</a>
+    </form>
+  </div>
+
+
+<!-- Section tableau Retraite -->
+<section>
+  <div class="container mt-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm caption-top">
+      <caption>Dashboard Préfecture</caption>
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">codePrefecture</th>
+          <th scope="col">nomPrefecture(s)</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for prefecture in prefecture %}
+        <tr>
+          <th scope="row">{{ prefecture.id }}</th>
+          <td>{{ prefecture.codePrefecture }}</td>
+          <td>{{ prefecture.nomPrefecture }}</td>
+          <td>
+            <div class="d-flex gap-2">
+
+              <a href="{% url 'retraite:prefecture_edit' prefecture.codePrefecture %}" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
+              <form action="{% url 'retraite:prefecture_delete' prefecture.codePrefecture %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+    {% include "retraite/partials/paginator.html" with datas=prefecture %}
+</div>
+
+</section>
+
+{% endblock %}

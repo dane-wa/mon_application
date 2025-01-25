@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- formulaire Retraite -->
+ <div class="container mt-3">
+  <h3>Détails Retraite</h3>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if retraite %}
+        <input type="hidden" name="_method" value="PUT">
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6 ">
+            {{ retraite_form }}
+        </div>
+
+        <div class="col-md-6">
+          <div class="card m-3">
+            <div class="card-header">
+                 <h2 class="card-title text-center"> Formulaire Retraite</h2>
+                <img src="{% static 'images/Logo-CNSS.png' %}" alt="logo" >
+            </div>
+
+          </div>
+        </div>
+    </div>
+
+    <div>
+        {% if retraite %}
+            <button type="submit" class="btn btn-success text-center my-3">Modifier</button>
+        {% else %}
+            <button type="submit" class="btn btn-success text-center my-3">Ajouter</button>
+        {% endif %}
+            <a href="{% url 'retraite:retraite_liste' %}" class="btn btn-danger text-center my-3">Annuler</a>
+    </div>
+</form>
+</div>
+
+{% endblock %}

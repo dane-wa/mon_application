@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- recherche et ajout -->
+  <div class="container mt-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" name="recherche">
+      <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+      <a href="{% url 'retraite:retraite_deces_add' %}" class="btn btn-success mx-2" type="button">Ajouter</a>
+    </form>
+  </div>
+
+
+<!-- Section tableau Retraite -->
+<section>
+  <div class="container mt-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm caption-top">
+      <caption>Dashboard Retraites Décès</caption>
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">N° Pension</th>
+          <th scope="col">dateDeces</th>
+          <th scope="col">dateDeclaration</th>
+          <th scope="col">AssignationDefunt</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for retraitedeces in retraitedeces %}
+        <tr>
+          <th scope="row">{{ retraitedeces.id }}</th>
+          <td>{{ retraitedeces.retraite }}</td>
+          <td>{{ retraitedeces.dateDeces }}</td>
+          <td>{{ retraitedeces.dateDeclaration }}</td>
+          <td>{{ retraitedeces.AssignationDefunt }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <a href="{% url 'retraite:retraite_deces_edit' retraitedeces.id %}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
+              <form action="{% url 'retraite:retraite_deces_delete' retraitedeces.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+    {% include "retraite/partials/paginator.html" with datas=retraitedeces %}
+</div>
+
+</section>
+
+{% endblock %}

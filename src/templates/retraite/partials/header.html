@@ -1,0 +1,45 @@
+{% load static %}
+<!-- Header-->
+  <header style="background-image: url('{% static 'images/IMG_4015.jpeg' %}'); background-size: cover; background-position: center; height: 200px;">
+    <div class="container-fluid d-flex align-items-center justify-content-start h-100">
+      <img src="{% static 'images/Logo-CNSS.png' %}" class="mx-3" width="100" height="100" alt="logo" />
+    </div>
+  </header>
+
+  <nav class="navbar bg-dark navbar-dark navbar-expand-lg sticky-top">
+    <div class="container-fluid mx-3">
+      <div class="navbar-brand text-success">
+        CAISSE NATIONALE DE SECURITE SOCIALE
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a href="{% url 'retraite:home' %}" class="nav-link mx-3">ACCUEIL</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'retraite:retraite_home' %}" class="nav-link mx-3">RETRAITE</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link mx-3">REVERSION</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link mx-3">INVALIDITE</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link mx-3">SCD</a>
+          </li>
+        </ul>
+
+        <form action="{% url 'logout' %}" method="post" class="d-flex">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger"><i class="bi bi-power"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+

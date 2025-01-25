@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container my-3">
+  <h3 class="my-3">Détails Retraite</h3>
+<form class="row g-3">
+  <div class="col-md-6">
+      <div class="post-img">
+          <div class="img-fluid">
+              <img class="rounded" src="
+              {% if retraite.image %}
+                          {{ retraite.image.url }}
+                      {% else %}
+                          {% static 'images/profil.jpg'%}
+                      {% endif %}
+              " width="50%" height="150px" alt="{{ post.title }}">
+          </div>
+      </div>
+  </div>
+
+  <div class="col-md-3">
+    <label for="inputTitre" class="form-label fw-bold mt-5">Titre</label>
+    <p class="form-control">{{ retraite.titre }}</p>
+  </div>
+  <div class="col-md-3">
+    <label for="inputTitre" class="form-label fw-bold mt-5">type</label>
+    <p class="form-control">{{ retraite.type }}</p>
+  </div>
+  <div class="col-md-2">
+    <label for="inputNumPens" class="form-label fw-bold">N°pension</label>
+    <p class="form-control">{{ retraite.nPension }} </p>
+  </div>
+  <div class="col-md-5">
+    <label for="inputPrenom" class="form-label fw-bold">Prénom(s)</label>
+    <p class="form-control">{{ retraite.prenom }} </p>
+  </div>
+  <div class="col-md-5">
+    <label for="inputNom" class="form-label fw-bold">Nom</label>
+    <p class="form-control">{{ retraite.nom }} </p>
+  </div>
+  <div class="col-md-6">
+    <label for="inputDateNais" class="form-label fw-bold">Date de Naissance</label>
+    <p class="form-control">{{ retraite.dateNais|date:"SHORT_DATE_FORMAT" }} </p>
+  </div>
+  <div class="col-md-6">
+    <label for="inputDateJouis" class="form-label fw-bold">Date de Jouissance</label>
+    <p class="form-control">{{ retraite.dateJouis|date:"SHORT_DATE_FORMAT" }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputEmployeur" class="form-label fw-bold text-danger">Employeur</label>
+    <p class="form-control">{{ retraite.employeur }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputAssignation" class="form-label fw-bold text-danger">Assignation</label>
+    <p class="form-control">{{ retraite.prefecture }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputMontTrim" class="form-label fw-bold">Mensuel Dû(s)</label>
+   <p class="form-control">{{ retraite.MensuelDu }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputMontTrim" class="form-label fw-bold">Montant Trimestriel</label>
+    <p class="form-control">{{ retraite.montantTrim }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputAlloc" class="form-label fw-bold">Allocation</label>
+    <p class="form-control">{{ retraite.allocation }} </p>
+  </div>
+  <div class="col-md-4">
+    <label for="inputMontTotal" class="form-label fw-bold">Montant Total</label>
+    <p class="form-control">{{ retraite.montantTotal }} </p>
+  </div>
+  <div class="col-4">
+    <label for="inputMontReval" class="form-label fw-bold">Montant Trim Reval 40%</label>
+   <p class="form-control">{{ retraite.montantTrim_40 }} </p>
+  </div>
+  <div class="col-4">
+    <label for="inputMontComp" class="form-label fw-bold">Montant Complémentaire</label>
+    <p class="form-control">{{ retraite.montantComp }} </p>
+  </div>
+  <div class="col-4">
+    <label for="inputObservation" class="form-label fw-bold">Observation</label>
+    <textarea class="form-control">{{ retraite.Observation }}</textarea>
+  </div>
+
+</form>
+</div>
+{% endblock %}

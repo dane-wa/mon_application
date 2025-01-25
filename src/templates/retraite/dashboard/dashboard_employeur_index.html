@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- recherche et ajout -->
+  <div class="container mt-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" name="recherche">
+      <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+      <a href="{% url 'retraite:employeur_add' %}" class="btn btn-success mx-2" type="button">Ajouter</a>
+    </form>
+  </div>
+
+
+<!-- Section tableau Retraite -->
+<section>
+  <div class="container mt-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm caption-top">
+      <caption>Dashboard Employeur</caption>
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">N° Employeur</th>
+          <th scope="col">Nom Employeur</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for employeur in employeur %}
+        <tr>
+          <th scope="row">{{ employeur.id }}</th>
+          <td>{{ employeur.codeEmployeur }}</td>
+          <td>{{ employeur.nomEmployeur }}</td>
+          <td>
+            <div class="d-flex gap-2">
+
+              <a href="{% url 'retraite:employeur_edit' employeur.codeEmployeur %}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
+              <form action="{% url 'retraite:employeur_delete' employeur.codeEmployeur %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+    {% include "retraite/partials/paginator.html" with datas=employeur %}
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load montant_price %}
+
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- recherche et ajout -->
+  <div class="container mt-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" name="recherche">
+      <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+      <a href="{% url 'retraite:retraite_add' %}" class="btn btn-success mx-2" type="button">Ajouter</a>
+    </form>
+  </div>
+
+
+<!-- Section tableau Retraite -->
+<section>
+  <div class="container mt-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm caption-top">
+      <caption>Dashboard Retraites</caption>
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Prénom(s)</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Type</th>
+          <th scope="col">N° Pension</th>
+          <th scope="col">Employeur</th>
+          <th scope="col">MontTrimTotal</th>
+          <th scope="col">MontMens</th>
+          <th scope="col">Observation</th>
+          <th scope="col">Image</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for retraite in retraite %}
+        <tr>
+          <th scope="row">{{ retraite.id }}</th>
+          <td>{{ retraite.titre }}</td>
+          <td>{{ retraite.prenom }}</td>
+          <td>{{ retraite.nom }}</td>
+          <td>{{ retraite.type }}</td>
+          <td>{{ retraite.nPension }}</td>
+          <td>{{ retraite.employeur.nomEmployeur }}</td>
+          <td>{{ retraite.montantTotal|format_milliers }}</td>
+          <td>{{ retraite.montantMensuel|format_milliers }}</td>
+          <td>{{ retraite.Observation }}</td>
+          <td width="20"><img src="/media/{{ retraite.image }}" width="20" height="20"></td>
+          <td>
+            <div class="d-flex gap-1">
+              <a href="{% url 'retraite:retraite_view' retraite.nPension %}" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="detail"><i class="bi bi-eye"></i></a>
+              <a href="{% url 'retraite:retraite_edit' retraite.nPension %}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
+              <form action="{% url 'retraite:retraite_delete' retraite.nPension %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+    {% include "retraite/partials/paginator.html" with datas=retraite %}
+</div>
+
+</section>
+
+{% endblock %}
