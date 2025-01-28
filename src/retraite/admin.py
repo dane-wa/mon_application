@@ -3,7 +3,9 @@ from .models.Retraite import Retraite, Prefecture, Employeur
 from django.utils.html import format_html
 from .models.Banque import Banque
 from .models.RetraiteDeces import RetraiteDeces
+from .models.EcheancesRetraite import EcheancesRetraite
 from .models.RetraiteVirement import RetraiteVirement
+
 
 class RetraiteAdmin(admin.ModelAdmin):
 
@@ -44,6 +46,11 @@ class EmployeurAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class EcheancesRetraiteAdmin(admin.ModelAdmin):
+    list_display = (
+        'dateecheance',
+    )
+
 
 admin.site.register(Retraite, RetraiteAdmin)
 admin.site.register(Employeur, EmployeurAdmin)
@@ -51,4 +58,5 @@ admin.site.register(Prefecture, PrefectureAdmin)
 admin.site.register(Banque)
 admin.site.register(RetraiteVirement)
 admin.site.register(RetraiteDeces)
+admin.site.register(EcheancesRetraite)
 

@@ -43,11 +43,30 @@
             <div class="d-flex gap-2">
 
               <a href="{% url 'retraite:prefecture_edit' prefecture.codePrefecture %}" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier"><i class="bi bi-pencil-square"></i></a>
-              <form action="{% url 'retraite:prefecture_delete' prefecture.codePrefecture %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="_method" value="DELETE">
-                <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="supprimer"><i class="bi bi-trash3"></i></button>
-              </form>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#supprimer{{ prefecture.codePrefecture }}"><i class="bi bi-trash3"></i></button>
+                <div class="modal fade" id="supprimer{{ prefecture.codePrefecture }}" tabindex="-1" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Supprimer une prefecture</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="m-0">Voulez-vous vraiment supprimer la préfecture n° {{ prefecture.codePrefecture }} ? </p>
+                      </div>
+                      <form action="{% url 'retraite:prefecture_delete' prefecture.codePrefecture %}" method="post">
+                        {% csrf_token %}
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-danger">Supprimer</button>
+
+                      </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
             </div>
           </td>
         </tr>
